@@ -51,7 +51,7 @@ class UserController extends Controller
 
 
         }
-        //显示视图
+        //视图
         return view("shop.user.login");
     }
 
