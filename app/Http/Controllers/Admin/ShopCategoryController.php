@@ -35,7 +35,6 @@ class ShopCategoryController extends BaseController
             }
             ShopCategory::create($data);
             $request->session()->flash("success","提交成功");
-            //显示视图
             return redirect()->route("shopcategory.index");
         }
 
@@ -55,7 +54,6 @@ class ShopCategoryController extends BaseController
             }
             $cate->update($data);
             $request->session()->flash("success","修改成功");
-            //显示视图
             return redirect()->route("shopcategory.index");
         }
 

@@ -121,6 +121,13 @@
                 <input type="file" name="img">
             </div>
         </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">状态</label>
+            <div class="col-sm-5">
+                <input type="radio" name="status" value="1" checked>是
+                <input type="radio" name="status" value="0">否
+            </div>
+        </div>
 
 
         <div class="form-group">

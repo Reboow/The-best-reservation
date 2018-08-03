@@ -4,7 +4,7 @@
     <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">账号</label>
+            <label for="inputEmail3" class="col-sm-2 control-label">账号名字</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="inputEmail3" placeholder="" name="name" value="{{old("name")}}">
             </div>

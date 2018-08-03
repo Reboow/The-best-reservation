@@ -4,7 +4,7 @@
     <table class="table table-bordered table-hover">
         <tr>
             <th>id</th>
-            <th>管理员账号</th>
+            <th>管理员名字</th>
             <th>管理员邮箱</th>
             <th>操作</th>
         </tr>

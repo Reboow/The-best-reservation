@@ -1,15 +1,21 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
+        "jacobcyl/ali-oss-storage": "^2.1",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "overtrue/laravel-ueditor": "~1.0",
+        "spatie/laravel-permission": "^2.12"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -55,4 +61,6 @@
         "sort-packages": true,
         "optimize-autoloader": true
     }
+
+
 }

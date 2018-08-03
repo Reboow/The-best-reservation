@@ -41,8 +41,8 @@ class ShopController extends BaseController
                 "email"=>"required",
                 "password"=>"required",
                 "shop_name"=>"required",
-                "img"=>"required",
-                "rating"=>"required",
+                "shop_img"=>"required",
+                "shop_rating"=>"required",
                 "brand"=>"required",
                 "on_time"=>"required",
                 "fengniao"=>"required",
@@ -60,8 +60,8 @@ class ShopController extends BaseController
 
             $data=$request->all();
             $data["password"]=bcrypt($data["password"]);
-            $img=$request->file("img")->store("shop","img");
-            $data["img"]=$img;
+            $img=$request->file("shop_img")->store("shop","img");
+            $data["shop_img"]=$img;
             $data["status"]=1;
             //开启事务
             DB::transaction(function () use($data){
@@ -87,10 +87,10 @@ class ShopController extends BaseController
         //判断是否有POST上传
         if ($request->isMethod("post")){
             $data=$request->all();
-            $data["img"]=$shop->img;
+            $data["shop_img"]=$shop->shop_img;
             //判断是否有图片上传
             if($request->file("img")){
-                $data["img"]=$request->file("img")->store("shop","img");
+                $data["shop_img"]=$request->file("img")->store("shop","img");
             }
             //开始事务
             DB::transaction(function () use ($data,$shop,$user){

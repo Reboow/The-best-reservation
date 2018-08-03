@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
     //添加
     public function add(Request $request)
@@ -33,7 +33,6 @@ class AdminController extends Controller
     //编辑
     public function edit(Request $request,$id){
         $admin=Admin::find($id);
-        //判断是否POST提交
         if ($request->isMethod("post")){
             $this->validate($request,[
                 "name"=>"required|unique:admins,name,$admin->id",
@@ -59,15 +58,15 @@ class AdminController extends Controller
 
         return view("admin.admin.edit",compact("admin"));
     }
+
     public function login(Request $request)
     {
-        //判断是否POST提交
         if ($request->isMethod("post")){
             $this->validate($request,[
                 "name"=>"required",
                 "password"=>"required",
             ]);
-            if(Auth::guard("admin")->attempt(["name"=>$request->post("name"),"password"=>$request->post("password")],$request->post("remember"))){
+            if(Auth::guard("admin")->attempt(["name"=>$request->post("name"),"password"=>$request->post("password")],$request->has("remember"))){
                 return redirect()->route("shop.index");
             }else{
                  $request->session()->flash("danger","用户或者密码错误");

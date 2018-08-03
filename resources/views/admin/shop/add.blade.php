@@ -1,6 +1,7 @@
 
 @extends("layouts.admin.default")
 @section("content")
+    <br/>
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group">

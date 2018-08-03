@@ -7,14 +7,15 @@
             <th>用户名</th>
             <th>用户邮箱</th>
             <th>店铺名字</th>
-            <th>店铺类别</th>
-            <th>店铺评分</th>
+            {{--<th>店铺类别</th>--}}
+            {{--<th>店铺评分</th>--}}
             <th>是否品牌</th>
             <th>是否准时</th>
             <th>是否蜂鸟</th>
             <th>是否保</th>
             <th>是否票</th>
             <th>起送费用</th>
+            <th>配送费用</th>
             <th>店铺公告</th>
             <th>优惠信息</th>
             <th>店铺状态</th>
@@ -27,8 +28,8 @@
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->getShop->shop_name}}</td>
-            <td>{{$user->getShop->cate->name}}</td>
-            <td>{{$user->getShop->rating}}</td>
+            {{--<td>{{$user->getShop->shop_img}}</td>--}}
+            {{--<td>{{$user->getShop->shop_rating}}</td>--}}
             <td>{{$user->getShop->brand?"是":"否"}}</td>
             <td>{{$user->getShop->on_time?"是":"否"}}</td>
             <td>{{$user->getShop->fengniao?"是":"否"}}</td>

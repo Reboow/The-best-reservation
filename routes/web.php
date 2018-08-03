@@ -42,6 +42,14 @@ Route::domain('admin.eleb.com')->namespace('Admin')->group(function () {
     Route::get('/shop/del/{id}',"ShopController@del")->name("shop.del");
     Route::get('/shop/update/{id}',"ShopController@update")->name("shop.update");
     Route::get('/shop/status/{id}',"ShopController@status")->name("shop.status");
+
+    //活动管理
+    Route::get('/activity/index',"ActivityController@index")->name("activity.index");
+    Route::any('/activity/add',"ActivityController@add")->name("activity.add");
+    Route::any('/activity/edit/{id}',"ActivityController@edit")->name("activity.edit");
+    Route::any('/activity/del/{id}',"ActivityController@del")->name("activity.del");
+
+
 });
 //用户
 Route::domain('shop.eleb.com')->namespace('shop')->group(function () {
@@ -53,4 +61,35 @@ Route::domain('shop.eleb.com')->namespace('shop')->group(function () {
     Route::any('/user/edit/{id}',"UserController@edit")->name("user.edit");
     Route::get('/user/del/{id}',"UserController@del")->name("user.del");
     Route::any('/user/pass/{id}',"UserController@pass")->name("user.pass");
-});
+
+
+    //菜品分类
+    Route::get('/menucategory/index',"MenuCategoryController@index")->name("menucategory.index");
+    Route::any('/menucategory/add',"MenuCategoryController@add")->name("menucategory.add");
+    Route::any('/menucategory/edit/{id}',"MenuCategoryController@edit")->name("menucategory.edit");
+    Route::get('/menucategory/del/{id}',"MenuCategoryController@del")->name("menucategory.del");
+
+    //菜品
+    Route::get('/menu/index',"MenuController@index")->name("menu.index");
+    Route::any('/menu/add',"MenuController@add")->name("menu.add");
+    Route::any('/menu/edit/{id}',"MenuController@edit")->name("menu.edit");
+    Route::any('/menu/upload',"MenuController@upload")->name("menu.upload");
+    Route::get('/menu/del/{id}',"MenuController@del")->name("menu.del");
+
+
+    //活动列表
+    Route::get('/activity/index',"ActivityController@index")->name("activity.index1");
+
+
+    //用户
+    Route::domain('www.lvlla.com')->namespace('shop')->group(function () {
+        Route::get('/user/index',"UserController@index")->name("user.index");
+        Route::any('/user/login',"UserController@login")->name("user.login");
+        Route::any('/user/loginout',"UserController@loginout")->name("user.loginout");
+        Route::any('/user/reg',"UserController@reg")->name("user.reg");
+        Route::any('/user/add',"UserController@add")->name("user.add");
+        Route::any('/user/edit/{id}',"UserController@edit")->name("user.edit");
+        Route::get('/user/del/{id}',"UserController@del")->name("user.del");
+        Route::any('/user/pass/{id}',"UserController@pass")->name("user.pass");
+        
+});}
