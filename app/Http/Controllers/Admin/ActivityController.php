@@ -53,7 +53,7 @@ class ActivityController extends BaseController
             $query->where("end_time","<=",$time);
         }
 
-        $activitys=$query->paginate(1);
+        $activitys=$query->paginate(2);
         return view("admin.activity.index",compact("activitys","arr"));
     }
 

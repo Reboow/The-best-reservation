@@ -1,6 +1,6 @@
 @extends("layouts.admin.default")
 @section("content")
-    <a href="{{route("shopcategory.add")}}" class="btn bg-success">添加</a>
+    <a href="{{route("admin.add")}}" class="btn bg-success">添加</a>
     <table class="table table-bordered table-hover">
         <tr>
             <th>id</th>

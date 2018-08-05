@@ -17,8 +17,8 @@ class CreateActivityTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
-            $table->datetime('start_time');
-            $table->datetime('end_time');
+            $table->integer('start_time');
+            $table->integer('end_time');
             $table->timestamps();
         });
     }

@@ -52,6 +52,9 @@ class OrderController extends BaseController
         DB::beginTransaction();
         try{
             $order = Order::create($data);
+            //清除购物车
+            Cart::where("user_id",$order->user_id)->delete();
+
 
             //订单商品表
             foreach ($carts as $cart) {
@@ -69,7 +72,7 @@ class OrderController extends BaseController
             //提交
             DB::commit();
 
-        }catch (\Illuminate\Database\QueryException $exception){
+    }catch (\Illuminate\Database\QueryException $exception){
             DB::rollBack();
             return [
                 "status" => "false",
@@ -97,7 +100,7 @@ class OrderController extends BaseController
         $id = \request()->input("user_id");
         //找到订单
         $order = Order::find($id);
-        $data["user_id"] = (string)$order->user_id;
+        $data["id"] = (string)$order->id;
         $data["order_code"] = $order->sn;
         $data["order_birth_time"] = (string)$order->created_at;
         $data["order_status"] = $order->OrderStatus;
@@ -130,7 +133,7 @@ class OrderController extends BaseController
 
             $shop = Shop::find($order->shop_id);
             $order->shop_name = $shop->shop_name;
-            $order->shop_img = $shop->shop_img;
+            $order->shop_img = "/app/".$shop->shop_img;
 
             //找到商品
             $goods = OrderGoods::where("order_id", $order->id)->get();
@@ -157,10 +160,22 @@ class OrderController extends BaseController
                 "message" => "余额不足"
             ];
         }
-        $user->money=$user->money-$money;
-        $order->status=1;
-        $user->save();
-        $order->save();
+        DB::beginTransaction();
+        try{
+            $user->money=$user->money-$money;
+            $order->status=1;
+            $user->save();
+            $order->save();
+        DB::commit();
+        }catch (\Illuminate\Database\QueryException $exception){
+            DB::rollBack();
+            return [
+                "status" => "false",
+                "message" => "支付失败"
+            ];
+
+        }
+
         return [
             "status" => "true",
             "message" => "支付成功"

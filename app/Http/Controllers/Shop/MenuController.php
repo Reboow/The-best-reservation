@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Shop;
 
 use App\Models\Menu;
 use App\Models\MenuCategory;
+use App\Models\Order;
+use App\Models\OrderGoods;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -130,5 +132,113 @@ class MenuController extends Controller
             $data="";
         }
         return $data;
+    }
+
+
+    //菜单按日销量
+    public function day()
+    {
+//        SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as day,goods_id,SUM(amount) as num,SUM(amount)*goods_price as money FROM `order_goods` where order_id in (21,22,23,29) GROUP BY day,goods_id;
+        //找到店铺的ID
+        $id=Auth::user()->shop_id;
+        $start=\request()->start;
+        $end=\request()->end;
+        //找到店铺的订单的ID
+        $ordersID=Order::where("shop_id",$id)
+                        ->where("status",">",0)->get()->pluck("id")->toArray();
+
+
+        $query=OrderGoods::whereIn("order_id",$ordersID)
+                        ->Select(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d') as day,goods_id,SUM(amount) as num,SUM(amount)*goods_price as money"))
+                        ->groupBy("day","goods_id")
+                        ->orderBy("day","desc")
+                        ->limit(30);
+
+        $stime=strtotime($start);
+        $etime=strtotime($end);
+
+        if ($start!=null){
+            $query->whereDate("created_at",">=",$start);
+        };
+        if ($end!=null){
+            if ($stime>$etime){
+                return redirect()->route("menu.day")->with("danger","开始时间大于结束时间");
+            }
+            $query->whereDate("created_at","<=",$end);
+        };
+        $orders=$query->get();
+        return view("shop.menu.day",compact("orders"));
+
+    }
+
+
+    public function month()
+    {
+//        SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as day,goods_id,SUM(amount) as num,SUM(amount)*goods_price as money FROM `order_goods` where order_id in (21,22,23,29) GROUP BY day,goods_id;
+        //找到店铺的ID
+        $id=Auth::user()->shop_id;
+        $start=\request()->start;
+        $end=\request()->end;
+        //找到店铺的订单的ID
+        $ordersID=Order::where("shop_id",$id)
+            ->where("status",">",0)->get()->pluck("id")->toArray();
+
+
+        $query=OrderGoods::whereIn("order_id",$ordersID)
+            ->Select(DB::raw("DATE_FORMAT(created_at,'%Y-%m') as month,goods_id,SUM(amount) as num,SUM(amount)*goods_price as money"))
+            ->groupBy("month","goods_id")
+            ->orderBy("month","desc")
+            ->limit(30);
+
+        $stime=strtotime($start);
+        $etime=strtotime($end);
+
+        if ($start!=null){
+            $query->whereDate("created_at",">=",$start);
+        };
+        if ($end!=null){
+            if ($stime>$etime){
+                return redirect()->route("menu.month")->with("danger","开始时间大于结束时间");
+            }
+            $query->whereDate("created_at","<=",$end);
+        };
+        $orders=$query->get();
+        return view("shop.menu.month",compact("orders"));
+
+    }
+
+    public function year()
+    {
+//        SELECT DATE_FORMAT(created_at,'%Y-%m-%d') as day,goods_id,SUM(amount) as num,SUM(amount)*goods_price as money FROM `order_goods` where order_id in (21,22,23,29) GROUP BY day,goods_id;
+        //找到店铺的ID
+        $id=Auth::user()->shop_id;
+        $start=\request()->start;
+        $end=\request()->end;
+        //找到店铺的订单的ID
+        $ordersID=Order::where("shop_id",$id)
+            ->where("status",">",0)->get()->pluck("id")->toArray();
+
+
+        $query=OrderGoods::whereIn("order_id",$ordersID)
+            ->Select(DB::raw("DATE_FORMAT(created_at,'%Y') as year,goods_id,SUM(amount) as num,SUM(amount)*goods_price as money"))
+            ->groupBy("year","goods_id")
+            ->orderBy("year","desc")
+            ->limit(30);
+
+        $stime=strtotime($start);
+        $etime=strtotime($end);
+
+        if ($start!=null){
+            $query->whereDate("created_at",">=",$start);
+        };
+        if ($end!=null){
+            if ($stime>$etime){
+                return redirect()->route("menu.year")->with("danger","开始时间大于结束时间");
+            }
+            $query->whereDate("created_at","<=",$end);
+        };
+        $orders=$query->get();
+        return view("shop.menu.year",compact("orders"));
+
     }
 }

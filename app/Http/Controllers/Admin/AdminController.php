@@ -58,7 +58,7 @@ class AdminController extends BaseController
 
         return view("admin.admin.edit",compact("admin"));
     }
-
+    //登录
     public function login(Request $request)
     {
         if ($request->isMethod("post")){
@@ -77,7 +77,6 @@ class AdminController extends BaseController
 
         return view("admin.admin.login");
     }
-
     //注销
     public function loginout(){
         Auth::guard("admin")->logout();
