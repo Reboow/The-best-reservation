@@ -56,9 +56,9 @@ class MemberController extends BaseController
     public function sms(Request $request)
     {
         $config = [
-            'access_key' => 'LTAIuVDbqGu6Yxms',
-            'access_secret' => 'U77PHfiOJxbLu9Vn9eweU4ElAtlPqS',
-            'sign_name' => '刘松',
+            'access_key' => 'LTAI78PNz7tuUICR',
+            'access_secret' => 'Nip9fJfAfFMksbrHyKLW0CqlLbHgN8',
+            'sign_name' => '康昭阳',
         ];
 
         //得到CODE
@@ -71,7 +71,7 @@ class MemberController extends BaseController
 
 
         $sms=new AliSms();
-        $response = $sms->sendSms($tel, 'SMS_140635178', ['code'=> $code], $config);
+        $response = $sms->sendSms($tel, 'SMS_141570122', ['code'=> $code], $config);
 
         if ($response){
             return $data=[
