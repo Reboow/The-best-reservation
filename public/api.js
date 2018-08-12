@@ -18,9 +18,9 @@ window.api = {
   // 保存修改地址接口
   editAddress: '/api/address/update',
   // 获得订单列表接口
-  orderList: '/api/order/index',
+  orderList: '/api/order/list',
   // 获得指定订单接口
-  order: '/api/order/detail',
+  order: '/api/order/index',
   // 获得商家列表接口
   businessList: '/api/shop/list',
   // 获得指定商家接口

@@ -97,7 +97,7 @@ class OrderController extends BaseController
     public function index()
     {
         //订单ID
-        $id = \request()->input("user_id");
+        $id = \request()->input("id");
         //找到订单
         $order = Order::find($id);
         $data["id"] = (string)$order->id;
@@ -122,19 +122,16 @@ class OrderController extends BaseController
     //订单列表
     public function list()
     {
-        $id = \request()->input("user_id");
+      $id = \request()->input("user_id");
         $orders = Order::where("user_id", $id)->get();
-
         foreach ($orders as $order) {
             $order->id = "$order->id";
             $order->order_code = $order->sn;
             $order->rder_birth_time = (string)$order->created_at;
             $order->order_status = $order->OrderStatus;
-
             $shop = Shop::find($order->shop_id);
             $order->shop_name = $shop->shop_name;
             $order->shop_img = "/app/".$shop->shop_img;
-
             //找到商品
             $goods = OrderGoods::where("order_id", $order->id)->get();
             foreach ($goods as $k => $good) {
@@ -144,14 +141,13 @@ class OrderController extends BaseController
             $order->order_price = $order->total;
             $order->order_address = $order->detail_address;
         }
-
         return $orders;
     }
 
     //支付
     public function pay()
     {
-        $order = Order::find(\request()->input("id"));
+        $order = Order::find(\request()->input("user_id"));
         $user = Member::find($order->user_id);
         $money = $order->total;
         if ($user->money < $money) {

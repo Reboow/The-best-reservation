@@ -46,4 +46,6 @@ Route::namespace('Api')->group(function () {
     Route::get("order/detail","OrderController@detail");
     Route::post("order/pay","OrderController@pay");
     Route::get("order/index","OrderController@index");
+      Route::get("order/list","OrderController@list");
+
 });
